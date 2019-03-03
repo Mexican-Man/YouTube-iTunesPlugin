@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<style>
+	button {
+		border: 0;
+		height: 3rem;
+		width: 10rem;
+		margin-bottom: 0.2rem;
+		border-radius: 0.2rem;
+		font-weight: bold;
+		transition: color 0.5s, background 0.5s;
+	}
+	button#apple {
+		background: url(icons/wallpaper.jpg);
+		background-size: cover;
+		color: white;
+	}
+	button#spotify {
+		background: #84bd00;
+	}
+	button#google {
+		background: #f4522b;
+	}
+	button:disabled {
+		background: gray !important;
+		color: gray !important;
+	}
+</style>
+<meta charset="utf-8">
+</head>
+<body>
+	<button id="apple" disabled>Open in iTunes</button>
+	<button id="spotify" disabled>Open in Spotify</button>
+</body>
+<footer>
+	<script src="jquery.js"></script>
+	<script src="popup.js"></script>
+</footer>
+</html>
