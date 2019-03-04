@@ -5,7 +5,6 @@ function createLinks(results) {
 	if (window.location.href.indexOf("youtube.com/watch")) {
 		// iTunes
 		if (results[0] !== 0) {
-			console.log("oof");
 			document.getElementById("apple").disabled = false;
 			document.getElementById("apple").addEventListener("click", function(){openLink(0)});
 		}

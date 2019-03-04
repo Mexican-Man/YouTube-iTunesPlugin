@@ -11,14 +11,20 @@ function filter(text) {
 	return text.replace("-","").replace(".","").replace("ft", "");
 }
 
-function searchMusic() {
-	var filtered = filter(document.getElementsByTagName("h1")[0].innerHTML);
+async function searchMusic() {
+	var filtered = filter(document.getElementsByTagName("yt-formatted-string")[2].innerHTML);
 	
 	// iTunes
 	var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", ("https://itunes.apple.com/search?term=" + encodeURI(filtered)), false );
-	xmlHttp.send(null);
+	let promise = new Promise((resolve, reject) => {
+		xmlHttp.open("GET", ("https://itunes.apple.com/search?country=US&term=" + encodeURI(filtered)));
+		xmlHttp.onload = resolve;
+		xmlHttp.send();
+	});
+	
+	let result = await promise;
 	results[0] = JSON.parse(xmlHttp.responseText).results[0].trackViewUrl;
+	
 	
 	/*// Spotify
 	var xmlHttp2 = new XMLHttpRequest();
@@ -34,9 +40,6 @@ function searchMusic() {
 	var auth = JSON.parse(xmlHttp3.responseText).access_token;
 	console.log(auth);
 	*/
-	createPayload();
-	return results;
-	
 }
 
 function createPayload() {
@@ -47,9 +50,11 @@ function createPayload() {
 	}
 }
 
-chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
+chrome.runtime.onMessage.addListener(async function(message,sender,sendResponse){
     if (message.text === "trigger") {
-		searchMusic();
+		await searchMusic();
+		createPayload();
+		console.log(payload[0]);
         chrome.runtime.sendMessage({text: payload});
     }
 	if (message.text.includes("apple")) {

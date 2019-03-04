@@ -1,29 +1,35 @@
 {
-    "name":"YouTube to iTunes",
-    "manifest_version":2,
-    "version":"0.3",
-    "description":"Generates an iTunes link for songs on YouTube",
-    "icons":{
-    },
-	"browser_action": {
-		"default_icon": "icons/apple.png",
-		"default_popup": "popup.html"
+	"name":"YouTube to iTunes",
+	"manifest_version":2,
+	"version":"0.4",
+	"description":"Opens songs on YouTube directly in iTunes",
+	"icons":{
+
 	},
-    "background":{
-        "persistent":false,
-        "scripts":[
-            "background.html"
-        ]
-    },
-    "content_scripts": [
+	"browser_action":{
+		"default_icon":"icons/apple.png",
+		"default_popup":"popup.html"
+	},
+	"background":{
+		"persistent":false,
+		"page":"background.html"
+	},
+	"content_scripts":[
 		{
-			"matches": ["https://www.youtube.com/watch*"],
-			"js": ["jquery.js","itunes1.js","itunes2.js","script.js"]
-    	}
+			"matches":[
+				"https://www.youtube.com/watch*"
+			],
+			"js":[
+				"jquery.js",
+				"itunes1.js",
+				"itunes2.js",
+				"script.js"
+			]
+		}
 	],
-	"permissions": [
+	"permissions":[
 		"tabs",
 		"storage",
-        "http://*/"
-    ]
+		"http://*/"
+	]
 }
